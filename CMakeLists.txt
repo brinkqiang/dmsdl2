@@ -5,6 +5,12 @@ endif()
 cmake_minimum_required(VERSION 3.0.0)
 project(SDL2 C CXX)
 
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+INCLUDE(cmake/ModuleImport.cmake)
+INCLUDE(cmake/ModuleCompileOptions.cmake)
+ModuleSetCompileOptions()
+ModuleSetWinCompilerFlags()
+
 if(WINDOWS_STORE)
   cmake_minimum_required(VERSION 3.11)
   add_definitions(-DSDL_BUILDING_WINRT=1 -ZW)
@@ -37,6 +43,10 @@ include(CheckStructHasMember)
 include(CMakeDependentOption)
 include(FindPkgConfig)
 include(GNUInstallDirs)
+
+set(SDL2_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(SDL2_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
 set(CMAKE_MODULE_PATH "${SDL2_SOURCE_DIR}/cmake")
 include(${SDL2_SOURCE_DIR}/cmake/macros.cmake)
 include(${SDL2_SOURCE_DIR}/cmake/sdlchecks.cmake)
